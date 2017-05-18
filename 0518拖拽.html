@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽</title>
+    <style>
+        button{
+            margin-right: 10px;
+            margin-bottom: 15px;
+        }
+
+        div{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: turquoise;
+            /*margin-top: 15px;*/
+        }
+    </style>
+</head>
+<body>
+    <button>锁定范围</button>
+    <button>水平锁定</button>
+    <button>垂直锁定</button>
+    <button>锁定位置</button><br/>
+    <span>拖放状态：</span>
+    <div></div>
+</body>
+<script>
+    var btns = document.getElementsByTagName('button');
+    var ospan = document.getElementsByTagName('span')[0];
+
+
+    function move() {
+        var odiv = document.getElementsByTagName('div')[0];
+        odiv.onmousedown = function (e) {
+            document.onmousemove = null;
+            document.onmouseup = null;
+            var ev = e || event;
+            var cy = ev.clientY;  // 获取鼠标按下时在div的位置到浏览器顶部的距离
+            var cx = ev.clientX;
+            var divy = this.offsetTop;  // 获取鼠标按下时div的上边框到浏览器顶部的距离
+            var divx = this.offsetLeft;
+
+            var yy = cy - divy; // 获取鼠标按下时在div的位置到div的上边框的距离
+            var xx = cx - divx;
+//        console.log(divx+'----xy-----'+divy);
+            document.onmousemove = function (e) {
+                var ev = e || event;
+                cy = ev.clientY;
+                cx = ev.clientX;
+
+                odiv.style.top = (cy-yy)+'px';
+                odiv.style.left = (cx-xx)+'px';
+                ospan.innerHTML = '拖放状态：left：'+(cx-xx)+'&nbsp;top:'+(cy-yy);
+            }
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                odiv.onmouseup = null;
+            }
+        }
+    }
+    move();
+
+    //  锁定范围
+    btns[0].onclick = function (e) {
+        var odiv = document.getElementsByTagName('div')[0];
+        odiv.onmousedown = function (e) {
+            document.onmousemove = null;
+            document.onmouseup = null;
+            var ev = e || event;
+            var cy = ev.clientY;  // 获取鼠标按下时在div的位置到浏览器顶部的距离
+            var cx = ev.clientX;
+            var divy = this.offsetTop;  // 获取鼠标按下时div的上边框到浏览器顶部的距离
+            var divx = this.offsetLeft;
+
+            var yy = cy - divy; // 获取鼠标按下时在div的位置到div的上边框的距离
+            var xx = cx - divx;
+//        console.log(divx+'----xy-----'+divy);
+            document.onmousemove = function (e) {
+                var ev = e || event;
+                cy = ev.clientY;
+                cx = ev.clientX;
+                var bomW = window.innerWidth || document.body.clientWidth; // 获取浏览器的宽度
+                var bomH = window.innerHeight || document.body.clientHeight;
+//                console.log(bomW+'----bomWbomH-----m'+bomH);
+                if(cy>=50 && cy<=bomH-50 && cx>=50 && cx<=bomW-50){
+//                    console.log(cx+'----cxcy-----m'+cy);
+                    odiv.style.top = (cy-yy)+'px';
+                    odiv.style.left = (cx-xx)+'px';
+                    ospan.innerHTML = '拖放状态：left：'+(cx-xx)+'&nbsp;top:'+(cy-yy);
+                }
+            }
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                odiv.onmouseup = null;
+            }
+        }
+    }
+
+    // 水平锁定
+    btns[1].onclick = function (e) {
+        var odiv = document.getElementsByTagName('div')[0];
+        odiv.onmousedown = function (e) {
+            document.onmousemove = null;
+            document.onmouseup = null;
+            var ev = e || event;
+            var cy = ev.clientY;  // 获取鼠标按下时在div的位置到浏览器顶部的距离
+            var cx = ev.clientX;
+            var divy = this.offsetTop;  // 获取鼠标按下时div的上边框到浏览器顶部的距离
+            var divx = this.offsetLeft;
+
+            var yy = cy - divy; // 获取鼠标按下时在div的位置到div的上边框的距离
+            var xx = cx - divx;
+//        console.log(divx+'----xy-----'+divy);
+            document.onmousemove = function (e) {
+                var ev = e || event;
+                cy = ev.clientY;
+                cx = ev.clientX;
+                //水平锁定
+//                    console.log(cx+'----cxcy-----m'+cy);
+                    odiv.style.top = (cy-yy)+'px';
+                    odiv.style.left = divx+'px';
+                    ospan.innerHTML = '拖放状态：left：'+divx+'&nbsp;top:'+(cy-yy);
+
+
+            }
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                odiv.onmouseup = null;
+            }
+        }
+    }
+
+
+    // 垂直锁定
+    btns[2].onclick = function (e) {
+        var odiv = document.getElementsByTagName('div')[0];
+        odiv.onmousedown = function (e) {
+            document.onmousemove = null;
+            document.onmouseup = null;
+            var ev = e || event;
+            var cy = ev.clientY;  // 获取鼠标按下时在div的位置到浏览器顶部的距离
+            var cx = ev.clientX;
+            var divy = this.offsetTop;  // 获取鼠标按下时div的上边框到浏览器顶部的距离
+            var divx = this.offsetLeft;
+
+            var yy = cy - divy; // 获取鼠标按下时在div的位置到div的上边框的距离
+            var xx = cx - divx;
+//        console.log(divx+'----xy-----'+divy);
+            document.onmousemove = function (e) {
+                var ev = e || event;
+                cy = ev.clientY;
+                cx = ev.clientX;
+                //垂直锁定
+//                console.log(cx+'----cxcy-----m'+cy);
+                odiv.style.top = divy+'px';
+                odiv.style.left = (cx-xx)+'px';
+                ospan.innerHTML = '拖放状态：left：'+(cx-xx)+'&nbsp;top:'+divy;
+            }
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                odiv.onmouseup = null;
+            }
+        }
+    }
+
+
+    // 锁定位置
+    btns[3].onclick = function (e) {
+        var odiv = document.getElementsByTagName('div')[0];
+        odiv.onmousedown = function () {
+            document.onmousemove = null;
+            document.onmouseup = null;
+            var divy = this.offsetTop;  // 获取鼠标按下时div的上边框到浏览器顶部的距离
+            var divx = this.offsetLeft;
+
+//        console.log(divx+'----xy-----'+divy);
+            document.onmousemove = function () {
+                //锁定位置
+                odiv.style.top = divy+'px';
+                odiv.style.left = divx+'px';
+                ospan.innerHTML = '拖放状态：left：'+divx+'&nbsp;top:'+divy;
+            }
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                odiv.onmouseup = null;
+            }
+        }
+    }
+</script>
+</html>

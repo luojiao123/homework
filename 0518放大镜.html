@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>放大镜</title>
+    <style>
+        .box{
+            position: relative;
+            width: 500px;
+            height: 300px;
+            background: url("img/img3.jpg") no-repeat;
+            float: left;
+        }
+        .move{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: #9c9c9c;
+            opacity: 0.2;
+        }
+        .right{
+            width: 300px;
+            height: 300px;
+            background: url("img/img3L.jpg") no-repeat;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="move"></div>
+    </div>
+    <div class="right">
+
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        var obox = document.getElementsByClassName('box')[0];
+        var omove = document.getElementsByClassName('move')[0];
+        var oright = document.getElementsByClassName('right')[0];
+
+        obox.onmouseover = function (e) {
+            var ev = e || event;
+            var cy = ev.clientY;
+            var cx = ev.clientX;
+
+            omove.style.top = (cy-50)+ 'px';
+            omove.style.left = (cx-50)+ 'px';
+
+            omove.onmousemove = function () {
+                var divx = this.offsetLeft;
+                var divy = this.offsetTop;
+                
+
+            }
+        }
+
+
+
+    }
+
+</script>
+</html>
