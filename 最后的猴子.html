@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>最后的猴子</title>
+    <script src="js/index.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        button{
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px 2px orange;
+            background: antiquewhite;
+            cursor: pointer;
+            margin: 20px 10px;
+        }
+        span{
+            padding-left: 10px;
+        }
+        div{
+            position: absolute;
+            left: 10px;
+            top: 100px;
+            width: 66px;
+            height: 45px;
+            background: url("img/1.gif") no-repeat;
+        }
+    </style>
+</head>
+<body>
+<button>根据鼠标点击位置移动</button>
+<button>根据鼠标轨迹移动</button><br />
+<span>请点击按钮激活此功能</span>
+<div></div>
+</body>
+<script>
+    window.onload = function () {
+        var btns = document.getElementsByTagName('button');
+        var ospan = document.getElementsByTagName('span')[0];
+        var odiv = document.getElementsByTagName('div')[0];
+        var arr = [{
+            x:odiv.offsetLeft,
+            y:odiv.offsetTop
+        }];
+
+        btns[0].onclick = function (e) {
+            var ev = e || event;
+            e.cancelBubble = true;
+
+            btns[0].innerHTML = '根据鼠标点击位置移动（已激活）';
+            btns[1].innerHTML = '根据鼠标轨迹移动';
+            ospan.innerHTML = '鼠标点击页面，人物将移动至鼠标点击位置';
+
+            document.onclick = function (e) {
+                var ev = e || event;
+                var ex = ev.clientX;
+                var ey = ev.clientY;
+                odiv.style.background = 'url("img/2.gif") no-repeat';
+                startMove(odiv,{
+                    left:ex,
+                    top:ey
+                },function () {
+                    odiv.style.background = 'url("img/1.gif") no-repeat';
+                })
+            }
+        }
+
+        btns[1].onclick = function (e) {
+            var ev = e || event;
+            ev.cancelBubble = true;
+            btns[1].innerHTML = '根据鼠标轨迹移动（已激活）';
+            btns[0].innerHTML = '根据鼠标点击位置移动';
+            ospan.innerHTML = '鼠标按住左键在页面滑动，人物将按鼠标轨迹运动';
+
+            document.onclick = null;
+            document.onmousedown = function (e) {
+                var ev = e || event;
+                var ex = ev.clientX;
+                var ey = ev.clientY;
+
+                arr.push({
+                    x: ex,
+                    y: ey
+                });
+                document.onmousemove = function (e) {
+                    var ev = e || event;
+                    var ex = ev.clientX;
+                    var ey = ev.clientY;
+                    arr.push({
+                        x: ex,
+                        y: ey
+                    });
+                    return false;
+                }
+                return false;
+            }
+            document.onmouseup = function () {
+                odiv.style.background = 'url("img/2.gif") no-repeat';
+                document.onmousemove = null;
+                var timer = setInterval(function () {
+                    if (arr.length == 0) {
+                        clearInterval(timer);
+                        odiv.style.background = 'url("img/1.gif") no-repeat';
+                        return;
+                    } else {
+                        startMove(odiv, {
+                            left: arr[0].x,
+                            top: arr[0].y
+                        });
+                        arr.shift();
+                    }
+                }, 30);
+            }
+        }
+    }
+</script>
+</html>

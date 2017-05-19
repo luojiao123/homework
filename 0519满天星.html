@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>满天星</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: #9c9c9c;
+        }
+        div{
+            position: relative;
+            width: 1000px;
+            height: 500px;
+            background: url("img/bg.jpg") no-repeat;
+            background-size: cover;  /*  背景图片适应div的大小   */
+            margin: 20px auto;
+        }
+        i{
+            position: absolute;
+            display: block;
+            width: 30px;height: 30px;
+            background: url("img/1.jpg") no-repeat;
+            background-size: cover;  /*  背景图片适应div的大小   */
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+</body>
+<script>
+    var odiv = document.getElementsByTagName('div')[0];
+
+    // 生成30个小星星
+    for(var i =0;i<30;i++){
+        odiv.innerHTML += '<i></i>';
+    }
+    // 让i 出现在div范围内
+    var ax = odiv.offsetWidth;
+    var ay = odiv.offsetHeight;
+
+    var oi = document.getElementsByTagName('i');
+    for(var i=0;i<oi.length;i++){
+
+    }
+
+</script>
+</html>
